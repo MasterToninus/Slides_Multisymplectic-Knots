@@ -1,0 +1,149 @@
+%+------------------------------------------------------------------------+
+%| Frame: Anatomy of Generalized Poisson sign
+%| Credit: https://tex.stackexchange.com/questions/15735/adding-arrows-to-each-term-of-an-equation
+%| Author: Antonio miti
+%+------------------------------------------------------------------------+
+\providecommand{\datapath}{.}
+
+\documentclass[beamer,10pt]{standalone}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{graphicx, animate}
+
+
+\usepackage[most]{tcolorbox}
+\newtcolorbox{REdefblock}[1][]{
+	colback=white,
+	colbacktitle=white,
+	coltitle=red!70!black,
+	colframe=red!70!black,
+	%boxrule=1pt,
+	titlerule=0pt,
+	%arc=15pt,
+	left skip=0em, right skip=0em,
+	%enlarge left by=-1em,width=\linewidth+1.5em, %box horizontal size
+	left=0em,right=0em,top=0em,bottom=0em, %text spacing
+	toptitle=-0.2em,bottomtitle=-0.2em, %title spacing
+	title={Def: \strut#1}
+}
+
+
+\tikzstyle{every picture}+=[remember picture]
+\everymath{\displaystyle}
+
+\makeatletter
+
+% Designate a term in a math environment to point to
+% Syntax: \mathterm[node label]{some math}
+\newcommand\target[2][]{%
+   \tikz [baseline] { \node [draw=black,fill=white,rectangle,anchor=base] (#1) {#2}; }}
+\newcommand\mathtarget[2][]{%
+   \tikz [baseline] { \node [draw=black,fill=white,rectangle,anchor=base] (#1) {$#2$}; }}
+\newcommand\source[2][]{%
+   \tikz [baseline] { \node [inner sep=0pt,anchor=base] (#1) {#2}; }}
+\newcommand\mathsource[2][]{%
+   \tikz [baseline] { \node [inner sep=0pt,anchor=base] (#1) {$#2$}; }}
+   
+% A command to draw an arrow from source to target
+% Default color=black, default arrow head=stealth
+% Syntax: \indicate[color]{source}{target}[path options]
+\newcommand\indicate[3][black]{%
+   \@ifnextchar[{\@indicateopts{#1}{#2}{#3}}{\@indicatenoopts{#1}{#2}{#3}}}
+\def\@indicatenoopts#1#2#3{%
+   {\color{#1} \tikz[overlay] \path[line width=1pt,draw=#1,-stealth] (#3) edge (#2);}}
+\def\@indicateopts#1#2#3[#4]{%
+   {\color{#1} \tikz[overlay] \path[line width=1pt,draw=#1,-stealth] (#3) [#4] edge (#2);}}
+
+\makeatother
+
+
+\begin{document}
+\begin{standaloneframe}[fragile]{$L-\infty$ Algebras - about the "sign" term} %TODO 
+	\begin{columns}
+	    \begin{column}{.5\linewidth}
+	    		\source[s1]{
+			\begin{tcolorbox}[colback=white]	
+				q
+		  	\end{tcolorbox}  		
+	    		}
+		\end{column}
+		%
+	    \begin{column}{.5\linewidth}
+	    		\source[s4]{
+			\begin{tcolorbox}[colback=white]	
+				q
+		  	\end{tcolorbox} 		
+	    		}
+		\end{column}
+	\end{columns}    	 
+
+	\begin{center}
+		\begin{displaymath}
+			\Big[\text{"sign"} \Big]\, =	\mathtarget[t1]{(-)^{i(j+1)}}
+			\mathtarget[t2]{\epsilon(\mathtarget[t3]{\sigma};x_1,\ldots,x_k)} \mathtarget[t4]{\text{sign}(\sigma)}
+		\end{displaymath}	
+		\vspace{5ex}
+	\end{center}
+	
+	\begin{columns}
+	    \begin{column}{.5\linewidth}
+	    		\source[s3]{
+			\begin{REdefblock}[Unshuffles]	    		
+				\begin{columns}
+				%
+			    \begin{column}{.6\linewidth}
+			    \vspace{-5ex}
+			    	\begin{displaymath}
+			    	\begin{split}
+						&ush(p,q) = \\
+						&\big\lbrace	\sigma \in S_{p+q} \,\big\vert\substack{\sigma(i) < \sigma(i+1)\\ \forall i \neq p}\big\rbrace  		
+				\end{split}
+			    	\end{displaymath}
+			    \end{column}  
+				%		
+			    \begin{column}{.4\linewidth}
+					%http://theknaveofclovers.tumblr.com/post/41608490725/card-shuffle
+					%\animategraphics[autoplay,loop,width=\linewidth]{5}{\datapath/unshuffle/unshuffle-}{0}{16}
+			    \end{column}  
+				%
+				\end{columns}
+		  	\end{REdefblock}    		
+	    		}
+
+		\end{column}
+		%
+	    \begin{column}{.5\linewidth}
+	    		\source[s2]{
+				\begin{REdefblock}[Kosuzl sign]
+					signature of the restriction of $\sigma$ to the subset of indices 
+					$i$ such that $v_i$ has odd degree
+				\end{REdefblock}
+			}
+		\end{column}
+	\end{columns}    	    	
+	
+	%Drawing overlay arrows
+	% \tikz[overlay] \path[line width=1pt,draw=red,-stealth] (s3) edge (t3);
+	\indicate[red]{t1}{s1}[out=-90,in=95]
+	\indicate[red]{t4}{s4}[out=-90,in=95]
+	\indicate[red]{t2}{s2}[out=90,in=-95]
+	\indicate[red]{t3}{s3}[out=90,in=-95]
+		
+\end{standaloneframe}
+\note[itemize]{
+	\item \href{Manetti - Notes}{http://www1.mat.uniroma1.it/people/manetti/DT2011/Linfinitoalgebre.pdf}
+   \item Koszul sign keep track of the extra sign that comes out when permuting element in odd degree
+   \item see Leonid thesis for a great description of all the terms! \url{https://www.springer.com/gp/book/9783658123895}
+}
+%------------------------------------------------------------------------------------------------
+
+
+
+
+
+\end{document}
+
+	

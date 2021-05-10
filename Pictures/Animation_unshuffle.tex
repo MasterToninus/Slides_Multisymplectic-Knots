@@ -1,0 +1,92 @@
+%+------------------------------------------------------------------------+
+%| SLIDES: short Animation Of unshuffling
+%| Author: Antonio miti
+%| Credit: Card Shuffling: http://theknaveofclovers.tumblr.com/post/41608490725/card-shuffle
+%| Note: Animate with gif s known to work only with Adobe Reader, PDF-XChange, and Foxit. 
+%+------------------------------------------------------------------------+
+
+
+%- D0cum3nt ----------------------------------------------------------------------------------------------------------------------------------
+\documentclass{beamer}              % only frames
+
+
+%- Packages ---------------------------------------------------------------------------------------------------------------------------
+\usepackage{tikz}
+\usepackage{verbatim}
+\usepackage{appendixnumberbeamer}
+\usepackage[mode=buildnew,subpreambles=true]{standalone}
+\usetikzlibrary{arrows,shapes}
+\usetikzlibrary{shapes.callouts}
+\usepackage{tikz-cd,amsmath, amssymb}
+\usepackage{adjustbox}
+\usepackage{graphicx, animate}
+\usepackage{hyperref}
+
+%--Beamer Style--------------------------------------------------------------------------------------------------------------------------------
+
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{frametitle}{
+	\nointerlineskip  
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.75ex,dp=1.375ex]{frametitle}
+        \hspace*{2ex}\insertframetitle \hfill {\tiny\insertframenumber} \hspace*{1ex}%
+    \end{beamercolorbox}
+}
+
+\setbeamersize{
+	text margin left=1em,text margin right=1em,
+	sidebar width left=0em, sidebar width right=0em
+} 
+
+
+%--Personalized Blocks------------------------------------------------------------------------------------------------
+% https://ctan.org/pkg/tcolorbox
+\usepackage{tcolorbox}
+\newtcolorbox{defblock}[1][Def:]{
+colback=white,
+colbacktitle=white,
+coltitle=red!70!black,
+colframe=red!70!black,
+%boxrule=1pt,
+titlerule=0pt,
+%arc=15pt,
+left skip=0em, right skip=0em,
+%enlarge left by=-1em,width=\linewidth+1.5em, %box horizontal size
+left=0em,right=0em,top=0em,bottom=0em, %text spacing
+toptitle=-0.5em,bottomtitle=-0.5em, %title spacing
+title={Def: \strut#1}
+}
+
+
+
+
+
+%----------------------------------------------------------------------------------------------------------------------------------
+\begin{document}
+\begin{frame}[fragile]{Unshuffles} 
+		%
+  	\begin{defblock}[Unshuffles]
+		\begin{columns}
+		%
+	    \begin{column}{.4\linewidth}
+			%http://theknaveofclovers.tumblr.com/post/41608490725/card-shuffle
+			\animategraphics[autoplay,loop,width=\linewidth]{5}{unshuffle/unshuffle-}{0}{16}
+	    \end{column}  
+		%
+	    \begin{column}{.6\linewidth}
+	    	\begin{displaymath}
+	    	\begin{split}
+				ush(p,q) = \big\lbrace	\sigma \in S_{p+q} \,\big\vert & \, \sigma(i) < \sigma(i+1) \\ 
+				& \quad \forall i \neq p \big\rbrace	    		
+			\end{split}	    	
+	    	\end{displaymath}
+	    \end{column}  
+		%
+		\end{columns}
+  	\end{defblock}
+  	%				
+  	(vedi rivkyn pag 5 observables thesis)
+  \end{frame}
+ %------------------------------------------------------------------------------------------------
+
+\end{document}
+

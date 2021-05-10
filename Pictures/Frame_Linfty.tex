@@ -1,0 +1,61 @@
+%+------------------------------------------------------------------------+
+%| Frame: Lie infinity algebra definition
+%| Author: Antonio miti
+%+------------------------------------------------------------------------+
+
+\documentclass[beamer]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes}
+\usepackage{amsmath, amssymb}
+
+
+
+
+\begin{document}
+\begin{standaloneframe}[fragile]
+				%
+				\tikzstyle{every picture}+=[remember picture]
+				\everymath{\displaystyle}
+				\tikzstyle{na} = [baseline=-.5ex]
+				%
+				\begin{columns}
+			    \begin{column}{.3\linewidth}
+			\begin{displaymath}
+				 \big(
+					 \tikz[baseline]{
+					            \node[fill=blue!20,anchor=base] (t1)
+					            {$ L$};
+					        } 
+						,
+						 \tikz[baseline]{
+					            \node[fill=blue!20,anchor=base] (t2)
+					            {$ \lbrace l_i \rbrace_{i \in \mathbb{N}} $};
+						}
+				\big)
+			\end{displaymath}	
+			    \end{column}
+			    %
+			    \begin{column}{.6\linewidth}		
+		\begin{itemize}
+		    \item[] \tikz[na] \node[coordinate,fill=blue!20,draw,circle] (n1) {};		    
+		   		 Graded vector space: $L = \bigoplus_{i\in\mathbb{Z}} L_i$
+		    \item[] \tikz[na]\node [coordinate,fill=blue!20,draw,circle] (n2) {};	    
+Family of maps (\emph{multi-brackets}) 
+			 $$l_k=[\cdot,\ldots,\cdot]_k:\wedge^k L\to L \quad,\qquad\deg(l_k)=2-k$$
+	\end{itemize}	
+			    \end{column}
+			    \end{columns}
+				%
+				\begin{tikzpicture}[overlay]
+				        \path[->] (n1) edge [bend right] (t1);
+				        \path[->] (n2) edge [bend left] (t2);
+				\end{tikzpicture}
+				%
+$\displaystyle
+			\sum_{i+j=k+1}(-)^{i(j+1)}\sum_{\sigma\in\text{ush}(i,k-i)}
+			\Big[ \epsilon(\sigma;x_1,\ldots,x_k) \text{sign}(\sigma) \Big]\,
+			\Big[ 	l_j\left(l_i\left(x_{\sigma_1},\ldots,x_{\sigma_i}\right),x_{\sigma_{i+1}},\ldots,x_{\sigma_k}\right)\Big]
+			= 0
+$
+\end{standaloneframe}
+\end{document}

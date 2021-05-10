@@ -1,0 +1,66 @@
+%+------------------------------------------------------------------------+
+%| Figure: Lie infinity algebra definition
+%| Author: Antonio miti
+%+------------------------------------------------------------------------+
+
+\documentclass[border=3pt]{standalone}
+\usepackage{tikz}
+\usepackage{verbatim}
+\usetikzlibrary{arrows,shapes}
+\usepackage{latexsym, amsmath, amssymb, amsfonts, amscd,stmaryrd}
+
+\begin{document}
+
+\tikzstyle{every picture}+=[remember picture]
+\everymath{\displaystyle}
+
+	\begin{minipage}[c]{0.25\textwidth}
+			\begin{displaymath}
+				 \big(
+					 \tikz[baseline]{
+					            \node[fill=blue!20,anchor=base] (t1)
+					            {$ L$};
+					        } 
+						,
+						 \tikz[baseline]{
+					            \node[fill=blue!20,anchor=base] (t2)
+					            {$ \lbrace l_i \rbrace_{i \in \mathbb{N}} $};
+						}
+				\big)
+			\end{displaymath}	
+	\end{minipage}
+	\begin{minipage}[t]{0.75\textwidth}
+		\tikzstyle{na} = [baseline=-.5ex]
+		\begin{itemize}
+		    \item[] \tikz[na] \node[coordinate,fill=blue!20,draw,circle] (n1) {};		    
+		   		 Graded vector space: $L = \bigoplus_{i\in\mathbb{Z}} L_i$
+		    \item[] \tikz[na]\node [coordinate,fill=blue!20,draw,circle] (n2) {};	    
+Family of maps (\emph{multi-brackets}) 
+			 $$l_k=[\cdot,\ldots,\cdot]_k:\wedge^k L\to L \quad,\qquad\deg(l_k)=2-k$$
+	\end{itemize}	
+	\end{minipage}
+
+
+
+
+%$\displaystyle
+%			\sum_{i+j=k+1}(-)^{i(j+1)}\sum_{\sigma\in\text{ush}(i,k-i)}
+%			\Big[ \epsilon(\sigma;x_1,\ldots,x_k) \text{sign}(\sigma) \Big]\,
+%			\Big[ 	l_j\left(l_i\left(x_{\sigma_1},\ldots,x_{\sigma_i}\right),x_{\sigma_{i+1}},\ldots,x_{\sigma_k}\right)\Big]
+%			= 0
+%$
+
+
+
+
+
+
+% Now it's time to draw some edges between the global nodes. Note that we
+% have to apply the 'overlay' style.
+\begin{tikzpicture}[overlay]
+        \path[->] (n1) edge [bend right] (t1);
+        \path[->] (n2) edge [bend left] (t2);
+       % \path[->] (n3) edge [out=0, in=-90] (t3);
+\end{tikzpicture}
+
+\end{document}

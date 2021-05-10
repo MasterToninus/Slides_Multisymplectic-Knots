@@ -1,0 +1,29 @@
+%+------------------------------------------------------------------------+
+%| SLIDES: Thank you Box
+%| Author: Antonio miti
+%|
+%| FONTS https://miktex.org/packages/initials
+%| http://ctan.mirror.garr.it/mirrors/CTAN/macros/latex/contrib/cfr-initials/cfr-initials.pdf
+%| Note: Animation works only on selected pdf reader (Flash required)
+%+------------------------------------------------------------------------+
+
+%- D0cum3nt ----------------------------------------------------------------------------------------------------------------------------------
+\documentclass[beamer]{standalone}
+
+%- Packages ---------------------------------------------------------------------------------------------------------------------------
+\usepackage{graphicx, animate, tikz}
+
+%------------------------------------------------------------------------------------------------
+\begin{document}
+\begin{standaloneframe}
+	\begin{animateinline}[autoplay,nomouse,loop]{1.4}
+  		\strut  
+			 \begin{tikzpicture}
+			 %nodes
+			 \node[draw,red] (ty) {THANK YOU};
+			\end{tikzpicture} 		
+  		\newframe[2.8] % [2.8] --> pause 1/2 as long as visible phase
+	\end{animateinline}
+\end{standaloneframe}
+\end{document}
+ %------------------------------------------------------------------------------------------------

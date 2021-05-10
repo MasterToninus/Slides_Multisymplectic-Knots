@@ -1,0 +1,399 @@
+%+----------------------------------------------------------------------------+
+%| SLIDES: Longer presentation on my paper 1805.01696
+%| Chapter: Brief introduction to multisymplectic geometry and Homotopy momap
+%| Author: Antonio miti
+%| Event: Visit in Salerno, March 2019
+%+----------------------------------------------------------------------------+
+
+%- HandOut Flag -----------------------------------------------------------------------------------------
+\newif\ifHandout
+	\Handouttrue  %uncomment for the printable version
+
+%- D0cum3nt ----------------------------------------------------------------------------------------------
+\documentclass[beamer,10pt]{standalone}
+	%\setbeameroption{show notes}
+	
+
+
+
+
+%- Packages ----------------------------------------------------------------------------------------------
+%\usepackage{verbatim}
+\usepackage[mode=buildnew,subpreambles=true]{standalone}
+\usepackage{import}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+%\usetikzlibrary{arrows,shapes,calc}
+%\usetikzlibrary{shapes.callouts}
+\usepackage{tikz-cd}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{stackengine}
+
+%--Beamer Style-----------------------------------------------------------------------------------------------
+\usetheme{toninus}
+
+
+
+%--Beamer Style-----------------------------------------------------------------------------------------------
+\usetheme{toninus}
+
+
+
+
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+%- D0cum3nt ----------------------------------------------------------------------------------------------------------------------------------
+\begin{document}
+%------------------------------------------------------------------------------------------------
+
+
+  \subsection{Multisymplectic manifolds}
+  \begin{frame}[fragile]{Multisymplectic Manifold} %Fragile -->workaround tikzcd
+			\begin{defblock}[$n$-plectic manifold]
+			\includestandalone[width=0.95\textwidth]{Pictures/Figure_multisym}	
+			\end{defblock}
+
+			\begin{defblock}[(Weekly) Non-degenerate n-form]
+				\begin{columns}
+					\hfill
+					\begin{column}{.4\linewidth}
+						\centering{
+						The multi-contraction map $\alpha^{(j)}$\par
+						is injective in the case $j=1$.
+						}
+					\end{column}
+					\begin{column}{.6\linewidth}
+						\[
+						\begin{tikzcd}[column sep= small,row sep=0ex]
+						    \alpha^{(j)} \colon& \mathfrak{X}^j(M) 	\arrow[r]& 				\Omega^{n+1-j}(M) \\
+						  						& \xi_1\wedge\ldots\wedge\xi_j 						\arrow[r, mapsto]& 	\iota_{\xi_j}\cdots\iota_{\xi_1} \omega 					
+						\end{tikzcd}	
+						\]
+					\end{column}
+				\end{columns}
+			\end{defblock}
+
+			\begin{itemize}
+					\item multisymplectic means \emph{going higher} in the rank of $\omega$\pause
+					\item 1-plectic $=$ symplectic
+			\end{itemize}
+			\vspace{1ex}
+			\pause
+			\begin{block}{Example:}
+				Any oriented $(n+1)$-dimensional manifold is $n$-plectic w.r.t. the volume form.
+			\end{block}			 
+
+
+  \end{frame}
+  \note[itemize]{
+  	\item Notation: in the following, we will suppress $M$ when denoting the spaces of tangent fields $\mathfrak{X}(M)$ and differential forms $\Omega^n(M$)
+  	\item Remark: introducing the notation of multi-contraction could seem an overkill at this point. However it will be useful in the following.
+  	%Hiny by Ori
+  	\item Weak is an $\infty$-dimensional condition on sections. Usually (for instance in the tautological form construction) is used a stronger condition:\\
+		The bundle map $\alpha: TM \rightarrow \wedge^n M$, acting on fibers as
+		$\alpha_x : v_x \to \iota_{v_x} \omega_x$
+		is injective on every fibers.  
+		\item the strong implies the weak: a bundle map between bundles on the same base induce a map between sections.
+		\item The converse is not true. Consider $\omega = x \text{d}x \wedge \text{d}y$, a presymplectic form that is not degenerate only on a dense domain.
+		The map induced on section is injective
+		$$\Gamma(T\mathbb{R}^2) \rightarrow \Gamma(T^\ast\mathbb{R}^2) : f\partial_x + g\partial_y \to x \left(f \text{d}y - g \text{d} x\right)$$
+		because the r.h.s. vanish only when $f,g$ are zero on $\mathbb{R}^2 \ \text{y-axis}$ but since $f,g$ are coefficient of smooth field, the continuity implies that such functions vanish everywhere.
+		
+		}
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+	
+%------------------------------------------------------------------------------------------------
+\begin{frame}[fragile]{MS geometry and classical field mechanics}
+		Consider a smooth manifold $Y$,
+		\begin{columns}
+			\hfill
+			\begin{column}{.5\linewidth}
+				\emph{Multicotangent bundle} $\bigwedge = \bigwedge^n T^\ast Y$\\
+				is naturally $n$-plectic
+			\end{column}
+			\begin{column}{.4\linewidth}
+				\[
+				\begin{tikzcd}
+					\Lambda \ar[d,"\pi"'] & T \Lambda \ar[d,"T \pi"] \ar[l] \\
+					Y								& T Y \ar[l]
+				\end{tikzcd}	
+				\]
+			\end{column}
+		\end{columns}
+	\pause
+	\begin{defblock}[Tautological $n$-form]
+		$\theta \in \Omega^n(\Lambda)$ such that:
+		\begin{displaymath}
+		\begin{split}
+			\left[ \iota_{u_1 \wedge \ldots \wedge u_n} \theta \right]_\eta 
+			&= \iota_{(T \pi)_\ast u_1 \wedge \ldots \wedge (T \pi)_\ast u_n} \eta \\
+			&= \iota_{u_1 \wedge \ldots \wedge u_n} \pi^\ast \eta 
+			\qquad \qquad \forall \eta \in \Lambda \, , \: \forall u_i \in T_\eta \Lambda 		
+		\end{split}
+		\end{displaymath}
+	\end{defblock}
+	\vfill
+	\begin{columns}
+		\begin{column}{.6\linewidth}
+			\begin{defblock}[Tautological (multisymplectic) (n+1)-form]
+				$$\omega := d \theta$$
+			\end{defblock}
+		\end{column}
+		\begin{column}{.4\linewidth}
+		 	\begin{claimblock}$\omega$ is not degenerate.\end{claimblock}	
+		\end{column}
+	\end{columns}	
+	\pause
+	\begin{keywordblock}
+		\begin{tabular}{|c|c|c|}
+			\hline 
+			point-particles mechanics & $\rightsquigarrow$ & classical fields mechanics \\
+			%(finite discrete DOF) & & (finite dimensional continuous DOF) \\
+			\hline 
+			symplectic & $\rightsquigarrow$ & multisymplectic \\ 
+			\hline 
+			Observables (Poisson) algebra & $\rightsquigarrow$ & Observables $L-\infty$ algebra
+			 \\ 
+			\hline 
+			Co-moment map & $\rightsquigarrow$ & Homotopy co-momentum map \\ 
+			\hline 
+		\end{tabular} 
+	\end{keywordblock}
+
+	
+\end{frame}
+\note[itemize]{
+	\item This example is significant from the perspective of geometric classical field theory:
+		\begin{displaymath}
+			\frac{\text{classical mechanics}}{\text{symplectic geo.}} =
+			\frac{\text{classical field mechanics}}{\text{multisymplectic geo.}}
+		\end{displaymath}
+	\item Multicotangent bundle is the \emph{Higher analogue} of the cotangent bundle.
+	(but it is not yet the analogue of a \emph{phase space}.)
+\item The multiphase space is the sub-bundle of $n$-forms vanishing when contracted with 2 vertical fields.
+  	\item The reason why this sub-bundle has a particular role is that it can be proved to be isomorphic to a suitable dual of the first Jet bundle.
+  	\item For further details see Gotay et al. \href{https://arxiv.org/abs/physics/9801019}{arXiv:physics/9801019}. For a pictorial representation of all the structures involved in the geometric mechanics of I order classical field theories see appendix, pag: \ref{frame:Gimmsy}.
+}
+%------------------------------------------------------------------------------------------------	
+	
+%------------------------------------------------------------------------------------------------
+\begin{frame}{Special classes of smooth objects} 
+  	\begin{columns}
+		\begin{column}[t]{.42\linewidth}		
+			\begin{defblock}[Hamiltonian v.f.]
+				$\mathfrak{X}_{ham} =  \left\lbrace X \in  \mathfrak{X} \right\vert \left. \iota_x \omega \textrm{ exact}  \right\rbrace$ 			
+			\end{defblock}
+			\begin{defblock}[Multisymplectic v.f.]
+				$\mathfrak{X}_{ms} =  \left\lbrace X \in  \mathfrak{X} \right\vert \left. \mathcal{L}_X \omega = 0  \right\rbrace$ 	
+			\end{defblock}
+		\end{column}
+		\begin{column}[t]{.58\linewidth}		
+			\begin{defblock}[Hamiltonian $(n$-$1)-$forms]
+				\begin{displaymath}
+					\Omega^{n-1}_{ham} 	:=
+					\biggr\{ H \in  \Omega^{n-1} \; \left\vert \; 
+					\stackanchor{$\exists X \in \mathfrak{X}_{ham}$}{: $d H = -\iota_X \omega$} \right\} 
+			\end{displaymath}
+			\end{defblock}		
+		\end{column}
+  	\end{columns}
+  	%
+  	\vspace{0.5em}
+  	%
+  	\onslide<2->{
+  	\begin{columns}
+		\begin{column}[t]{.5\linewidth}	
+			\centering\emph{Global symmetries}
+			\begin{defblock}[Multisymplectic (Lie group) action]
+				$\Phi: G \circlearrowright (M, \omega)$ \emph{right action} s.t. \\
+				$$\hat{\Phi}(g)_\ast \omega = \omega \quad \forall g \in G$$
+			\end{defblock}
+		\end{column}
+		\begin{column}[t]{.5\linewidth}			
+			\centering\emph{Infinitesimal symmetries}
+			\begin{defblock}[Multisymplectic (Lie algebra) action]
+				$V: \mathfrak{g} \rightarrow \mathfrak{X} (M)$ \emph{Lie algebra morphism} s.t. \\
+				$$\mathcal{L}_{V_\xi} \omega = 0 \quad \forall \xi \in \mathfrak{g}$$	
+			\end{defblock}
+		\end{column}
+  	\end{columns}
+  	}
+  	%
+  	\onslide<3->{		
+	  	\begin{asideblock}[Hierarchy of conserved quantities]%Shades of...
+	  		\begin{table}[] % http://tablesgenerator.com/
+			\begin{tabular}{lllll}
+					& strictly conserved & & & $\mathcal{L}_X \alpha= 0$ \\
+				$\alpha \in \Omega^\bullet$ & globally conserved & along $X \in \mathfrak{X}$ & $\Leftrightarrow$ & $\mathcal{L}_X \alpha\in B $ (exact) \\
+				  & locally conserved  & & & $\mathcal{L}_X \alpha\in Z $ (closed)                                
+			\end{tabular}
+			\end{table}
+	  	\end{asideblock}
+  	}
+  	
+  \end{frame}
+  \note[itemize]{
+  	\item Exactly as it happens in symplectic geometry, fixing a smooth form $\omega$ on $M$ yields a criterion for classifying vector fields and differential forms.
+  	\\(Pay attention to the sign convention in defining the Hamiltonian vector fields)
+  	\item Also, we can naturally select a special class of symmetries (global and infinitesimal) which preserve the fixed multisymplectic form.
+  	\item Aside, we can start to see that, in this setting, measurable quantities are not only smooth functions but also differential forms with degree greater then zero.
+  	For such objects can be defined weaker notions of conservation along a flow.
+  	\item The idea to consider forms of various degree as observables do not fall out of the sky. 
+  		For instance in a string there will be two kind of measurable quantities: extensive observable (1-forms), like the density, and intensive observables (0-forms), like the tension. 
+ 		%\href{https://en.wikipedia.org/wiki/Intensive_and_extensive_properties#Intensive_properties}{(wiki link on this terminology)}
+  	\item Starting from this observation we can define the space of all possible observables (see next slide).
+  }
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+  \subsection{Lie $\infty$-algebra of Observables}
+  \begin{frame}[fragile,t]{Lie $\infty$-algebra of Observables \emph{(Rogers)}}
+  	Consider $(M,\omega)$, $n$-plectic manifold,
+	\begin{defblock}[$L-\infty$ Algebra of observables]
+		Is a chain-complex\\
+		\ifHandout
+			\import{Pictures/}{Figure_Observables}	
+		\else
+			\import{Pictures/}{Frame_Observables}
+		\fi
+		
+		\onslide<2->{with $n$ (skew-symmetric) multibrackets $(2 \leq k \leq n+1)$\\
+			\import{Pictures/}{Equation_Multibracket}
+		}
+		\only<2->{	\footnote{$\varsigma(k) := - (-1)^{\frac{k(k+1)}{2}}$}}
+
+	\end{defblock}
+
+%  \onslide<3->{
+		\begin{itemize}
+			\item \emph{higher analogue} of the \emph{Poisson algebra structure} associated to a symplectic manifold.
+		\end{itemize}
+	%}
+  \end{frame}
+ \note[itemize]{
+	 \item What is a $L-\infty$ of observables?\\
+		Basically, is a chunk of the de Rham complex of $M$ with inverted grading and an extra structure, namely the multibrackets.
+ 	\item Take away message: the "space of observables" on a ms. mfd. carry the structure of a $L\-\infty$ algebra.\\
+ 		( In the symplectic case it reduces to the corresponding Poisson algebra)
+ 	\item Rogers associated to any n-plectic mfd a $L\-\infty$ algebra.
+ 	\item Zambon generalized to it pre n-plectic.
+ 	\item Remark: recognize in the definition of $[\cdot,\ldots,\cdot]_k$ the contraction with hamiltonian fields.
+ 	\item This definition is a special instance of a more general object  called $L\-\infty$ Algebra. \\
+ 		An $L-\infty$ algebra is a notion that one obtains from a Lie algebra 
+ 		requiring that the Jacobi identity is satisfied only up to a higher coherent chain homotopy. (see Appendix)
+ }
+%------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------
+  \subsection{Homotopy co-momentum map}
+  \begin{frame}[fragile,t]{Homotopy co-momentum map \emph{(Callies, Frégier, Rogers, Zambon)}}
+  	%
+		Consider a multisymplectic action $G \circlearrowright (M, \omega)$,
+		%
+		\begin{defblock}[Homotopy co-momentum map (HCMM)]				
+			Is a sequence of linear maps:
+			\begin{displaymath}
+				(f)  = \big\lbrace f_k: \; \Lambda^k{\mathfrak g} \to L_{k-1} \subseteq \Omega^{n-k} 
+				\;\big\vert\; 0\leq k \leq n+1  \big\rbrace
+			\end{displaymath}
+			%
+			\includestandalone[width=0.95\textwidth]{Pictures/Frame_HCMM}			
+			\emph{such that:}
+			\begin{itemize}
+				\item $f_0 = 0 $, $f_{n+1} = 0$ %(we have tacitly set $\Lambda^{-1}(M) = 0$)
+				\item<2-> $-f_{k-1} (\partial p) = d f_k (p) + \varsigma(k) \alpha^{(k)} \quad \forall (k=1,\dots n+1), \; \forall p \in \Lambda^k(\mathfrak{g})$
+			\end{itemize}
+		\end{defblock}
+		\begin{itemize}
+			\item \emph{Higher analogue} of the ordinary co-moment map $f\colon \mathfrak{g}\rightarrow C^\infty(M)$.
+		\end{itemize}
+  \end{frame}
+  \note[itemize]{
+		\item Notice that a HCMM pertains to an "infinitesimal" action of ${\mathfrak g}$ on $M$ 
+			with ${\mathfrak g}$ being the Lie algebra of a generic Lie group $G$, 
+			acting on $M$ by $\omega$-preserving vector fields.
+		\item (Not.) $ p = \xi_1 \wedge \xi_2 \wedge \dots \wedge \xi_k$, 
+			then $v_p = v_1 \wedge v_2 \wedge \dots \wedge v_k$ 
+			where $v_i \equiv v_{\xi_i}$ are the fundamental vector fields associated to the action $G \circlearrowright M$.
+	%	\item (Notation) $\iota(v_p) \omega = \iota(v_k)\dots\iota(v_1) \omega$
+	%	\item $\varsigma(k) := - (-1)^{\frac{k(k+1)}{2}}$ 
+		\item (Recall) $\alpha^{(k)}:= \iota(v_p) \omega = \iota(v_k)\dots\iota(v_1) \omega$
+		\item $\partial \equiv \partial_k:  \Lambda^{k} {\mathfrak g} \to \Lambda^{k-1} {\mathfrak g}$  is the usual Eilenberg-Chevalley complex boundary operator (see appendix, pag: \ref{frame:CE-complex});
+		\item The definition tells us that the {\it closed} forms
+			$$\mu_k := f_{k-1} (\partial p) +  \varsigma(k) \iota(v_p) \omega 	$$
+			must actually be {\it exact}, with potential $-f_k(p)$.  	
+		\item The last equation tells us that an HCMM is not a chain complex morphism but is rather a chain complex homotopy between 0 and the multicontraction $\alpha$ (is a chain map by lemma 2.18 \cite{Ryvkin2016}).
+		\item An HCMM is a L-$\infty$ morphism 
+		$(f):\mathfrak(g)\rightarrow L(M)$ s.t. 
+		$d f_1(\xi) = -\iota_{v_\xi} \omega$.\\
+		\footnotesize{(Compare with the definition of ordinary co-moment map: \\Lie algebra morphism 
+		$J:\mathfrak(g)\rightarrow C^\infty(M)$ s.t. $ d J(\xi) =  -\iota_{v_\xi} \omega$)}
+		
+  }
+%------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------
+\begin{frame}[fragile]{ A Cohomological existence condition (C.F.R.Z.)} 
+%
+	Consider a multisymplectic action $G \circlearrowright (M, \omega)$, fix $x\in M$
+				\[
+				\begin{tikzcd}[column sep= small,row sep=0ex]
+				    C_x :& \wedge^{n+1} \mathfrak{g}	\arrow[r]& 
+				    \mathbb{R} \\
+				    	& p= x_1\wedge\ldots\wedge x_{n+1} \arrow[r, mapsto]&
+				    	\iota(v_p) \omega \rvert_x
+				\end{tikzcd}	
+				\]
+	is a (Chevalley-Eilenberg) co-cycle, \quad i.e $\quad\delta_{CE} C_x = C_x \circ \partial = 0$
+	%
+	\onslide<2->{
+	\begin{propblock}[
+			\begin{tabular}{p{2cm} p{0.5cm} p{6.5cm}}
+				$M$ connected &  $\Rightarrow$ & the cohomology class 
+				$\lbrack C_x \rbrack_{\mathfrak{g}}$ is independent of the choice of point $x$
+			\end{tabular}]
+		\underline{Sketch:} One finds that: $C_{x^{\prime}} - C_x =  \delta_{CE} (b)$, where
+			\begin{displaymath}
+				b (\xi_1\wedge \xi_2 \wedge\dots \wedge \xi_{n}) := -\varsigma (n+1) \int_{\gamma} \iota (v_1\wedge v_2 \wedge\dots \wedge v_{n}) \omega			
+			\end{displaymath}
+			and $\gamma$ is a path connecting $x$ to $x^{\prime}$. 
+	\end{propblock}
+	}
+	%
+	\onslide<3->{
+	\begin{propblock}[
+			\begin{tabular}{p{2cm} p{1cm} p{6.5cm}}
+				$\exists$ $\mathfrak{g}$-HCMM & $\Rightarrow$& $\lbrack C_x \rbrack_{\mathfrak{g}} = 0$\\
+				&($\Leftarrow$& if   $H^i(M)=0$ for $1\leq i\leq n-1$)
+			\end{tabular}
+			]
+		See \href{https://arxiv.org/abs/1304.2051}{Callies et al}, Section 9.1.
+	\end{propblock}
+	}
+\end{frame}
+\note[itemize]{
+	\item Beware to the sloppy notation in the proposition, $v_i = v_{\xi_i}$.
+	\item A more refined statement can be found in \cite{Fregier2015}\\
+		HCMM are in a one to one correspondence with primitives of the cocycle
+		$\tilde{\omega} = \sum (-)^{k-1} \omega_k $ with
+		$$
+				\omega_k : \wedge^k\mathfrak{g} \ni x_1 \wedge \ldots \wedge x_k \mapsto
+				\iota(v_1\wedge\ldots\wedge v_k) \omega \in \Omega^{n-k}
+		$$
+		in the chain complex
+		$$
+			\mathcal{C} = \left(\wedge^{\geq 1} \mathfrak{g}^\ast \otimes \Omega(M), d_{\text{tot}} = 
+			d_{\mathfrak{g}}\otimes 1 + 1 \otimes d_{\text{dR}} \right)
+		$$
+ }
+%-------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+\end{document}
+
+
+
+
+

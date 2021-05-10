@@ -1,0 +1,289 @@
+%+----------------------------------------------------------------------------+
+%| SLIDES: Longer presentation on my paper 1805.01696
+%| Author: Antonio miti
+%| Event: Visit in Salerno, March 2019
+%+----------------------------------------------------------------------------+
+
+
+%- HandOut Flag -----------------------------------------------------------------------------------------
+\newif\ifHandout
+	\Handouttrue  %uncomment for the printable version
+	%Handling of flags it is not preserved when passing to standalone-subfiles!
+
+%- D0cum3nt ----------------------------------------------------------------------------------------------
+\ifHandout
+	\documentclass[handout,10pt]{beamer}   
+	\setbeameroption{show notes} %print notes    
+\else
+	\documentclass[10pt]{beamer}
+\fi
+
+
+%- Packages ----------------------------------------------------------------------------------------------
+\usepackage{verbatim}
+\usepackage{appendixnumberbeamer}
+\usepackage[mode=buildnew,subpreambles=true]{standalone}
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes,calc}
+\usetikzlibrary{shapes.callouts}
+\usepackage{tikz-cd}
+\usepackage{graphicx, animate}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{stackengine}
+\usepackage{fourier} %Danger Sign
+
+
+%--Beamer Style-----------------------------------------------------------------------------------------------
+\usetheme{toninus}
+
+%- T1tle P4g3 -------------------------------------------------------------------------------------------
+\title{Multisymplectic aspects of link invariants} 
+\subtitle{(Based on \href{http://arxiv.org/abs/1805.01696}{Arxiv:1805.01696})}
+\author[AMM]{\href{https://dmf.unicatt.it/miti/}{Antonio Michele Miti}\\(Joint work with Mauro Spera)}
+\institute[UCSC and KU Leuven]{
+  \begin{tabular}[h]{ccc}
+      Università Cattolica del Sacro Cuore & & KU Leuven \\
+      Brescia, Italy & & Leuven, Belgium \\
+      \href{https://dipartimenti.unicatt.it/dmf-home?rdeLocaleAttr=it}{\includegraphics[width=3.5cm]{Logos/UnicattBS-logo}} & & 
+      \href{https://wis.kuleuven.be/english}{\includegraphics[width=4cm]{Logos/KULeuven_logo}}
+  \end{tabular}      
+}
+\date[Unisa_19] % (optional, should be abbreviation of conference name)
+{	%(partly joint with: M.Spera)\\ 
+	Fisciano, March 19, 2019
+}
+
+
+
+
+%Intermediate checkpoint slide
+\newcommand{\checkpoint}[0]{
+	%\ifHandout
+	
+	%\else
+ 	\begin{frame}{Outline}
+  		%\tableofcontents[currentsection,currentsubsection]
+  		\addtocounter{framenumber}{-1}
+  		\tableofcontents[currentsection]
+	\end{frame}
+	%\fi
+}
+%--WORKAROUND------------------------------------------------------------------------------------------
+%Credit: https://tex.stackexchange.com/questions/147899/path-problem-with-included-file-inside-of-a-standalone-file
+\providecommand{\includestandalonewithpath}[3][]{%
+  \begingroup%
+  \providecommand{\datapath}{#2}%
+  \includestandalone[#1]{\datapath/#3}%
+  \endgroup}
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+%- D0cum3nt ----------------------------------------------------------------------------------------------------------------------------------
+\begin{document}
+%-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+%-------------------------------------------------------------------------------------------------------------------------------------------------
+	\begin{frame}  % Alternative: \maketitle outside of frame
+	  \titlepage
+	  \ifHandout
+		  \tikz[overlay,remember picture]
+			{
+	    		%	\node at ($(current page.west)+(1.5,0)$) [rotate=90] {\Huge\textcolor{gray}{\today}};
+	    			\node[        draw,
+	        			shape border rotate=90,
+					isosceles triangle,
+			        isosceles triangle apex angle=90,
+	        			fill=yellow]
+	        		at ($(current page.north east)-(1,1)$) [rotate=-45] {\textcolor{red}{Annoted version}};
+			}
+	\fi
+	\end{frame}
+	\addtocounter{framenumber}{-1}
+\note{
+	\scriptsize{
+	\textbf{\underline{Abstract}}\\
+		The present talk is a survey of part of recent joint work with Mauro Spera\cite{Miti2018} (arXiv: 1805.01696), in which we investigated some connections between multisymplectic geometry and knot theory.
+		\vspace{0.05em}
+		
+		A connection between these two topics can be established via mechanics of ideal fluids.\\
+		The key idea is to regard the group of orientation-preserving diffeomorphism of the Euclidean space (corresponding to spatial configurations of an ideal incompressible fluid permeating the whole space) as a multisymplectic action on $\mathbb{R}^3$ with the standard volume form seen as a 2-plectic form.
+		\vspace{0.5em}
+		
+		As a first result, we can explicitly construct a homotopy co-momentum map (à la Callies,  Fregier, Rogers and Zambon \cite{Callies2016}) associated to this multisymplectic action showing that it correctly transgresses to the standard hydrodynamical co-momentum map defined by Arnol’d, Marsden and Weinstein and others.
+		\vspace{0.5em}
+		
+		The transition to knots occurs when one considers vortex filaments in hydrodynamics.\\
+		It is possible to associate to these peculiar configurations of the fluid suitable conserved quantities, as defined by Ryvkin, Wurzbacher and Zambon\cite{Ryvkin2016}.\\
+		These quantities are directly related to the Gauss linking number of the link supporting the vorticity.
+		\vspace{0.5em}
+		
+		Time permitting, we shall discuss a reinterpretation of the (Massey) higher order linking numbers in terms of conserved quantities within the \cite{Ryvkin2016} multisymplectic framework, giving rise to knot theoretic analogues  of first integrals in involution.
+		}
+}
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+
+%--------------------------------------------------------------------------------------------------------------------------------
+\begin{frame}{Scope}
+%\smartdiagram[circular diagram]{	Multisymplectic geometry,	Hydrodynamics,	Knot theory}
+	\underline{Idea:}Multisymplectic Methods in Knot theory via Hydrodynamics.
+	\vfill
+\begin{center}
+	\includestandalone{Pictures/Figure_PaperLogic}
+\end{center}
+\end{frame}
+\note{
+			\textbf{\underline{OUTLINE}}:
+			\tableofcontents
+}
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+%--------------------------------------------------------------------------------------------------------------------------------
+\section{Multisymplectic geometry and homotopy moment maps} 
+\checkpoint
+\input{Slides_section1}
+%--------------------------------------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------
+\section{HCMM in Hydrodynamics}
+\checkpoint
+\input{Slides_section2}
+%------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------
+\section{Knots in Hydrodynamics}
+\checkpoint
+\input{Slides_section3}
+%------------------------------------------------------------------------------------------------
+
+
+
+%------------------------------------------------------------------------------------------------
+\section{Conclusions}	
+%------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------
+  \begin{frame}{Conclusion about HCMM in Hydrodynamics}
+		\begin{columns}
+			\begin{column}{.45\linewidth}
+				\onslide<2->{
+				\begin{upshotblock}
+					\begin{align*}
+						f_1 &= \flat \circ {\rm curl}^{-1} \\
+						f_2 &= {\rm grad}^{-1} \circ \sharp \circ \mu_2  
+					\end{align*}						
+					is a HCMM pertaining to the infinitesimal action of \\$\mathfrak{g}=sdiff_0$ on $\mathbb{R}^3$.
+				\end{upshotblock}
+				}
+  	  \end{column}
+			\begin{column}{.55\linewidth}
+				\begin{itemize}
+					\item We showed how to deal with observables and symmetries in multi-symplectic geometry;
+					\item<2-> We described a natural example motivated by physics;\\
+						\alert{$\Leftarrow$ momenta are related to vortices $\Leftarrow$}
+					\item<3-> Transgression to loop spaces yields something already known in the context of fluid dynamics;		
+				\end{itemize}
+			\end{column}
+			%	\hfill
+    \end{columns}
+    \vfill
+			\onslide<4->{
+				\begin{block}{This exemplify a general phenomenon:}
+					multisymplectic manifolds appear to be a \alert{"finite dimensional"} object able to encode features of \alert{"infinite dimensional"} mechanical systems.
+				\end{block}
+			}
+  \end{frame}
+  \note[itemize]{
+		\item About the Upshot:
+				\begin{itemize}
+					\item Be aware of the sloppy notation: 
+						the inverse of vector calculus differential operators are to be thought as their green operators.\\ 
+						There is no unique inverse of the curl!
+					\item Also the second one, is the operation of taking a primitive $f_2={\rm d}^{-1} \circ \mu_2 $.
+				\end{itemize}
+			\item We showed a natural example that is motivated by physics.\\
+					This example uses an infinite dimensional group 
+				(not all of the volume preserving diffeomorphisms but a big part of it.)\\
+					This is also nice because the passing to loop spaces is natural and yields 
+					something already known in the context of fluid dynamics.					
+	}
+%------------------------------------------------------------------------------------------------
+
+
+%------------------------------------------------------------------------------------------------
+\begin{frame}{Conclusion about knots}
+    \begin{columns}
+		\begin{column}{.60\linewidth} 
+			\begin{itemize}
+				\item<1-> Several link invariants can be understood as conserved quantities.
+				\item Higher order linking phenomena receive an interpretation in terms of  multisymplectic geometry, which is a sort of higher order symplectic geometry.
+			\end{itemize}
+		\end{column}
+		\begin{column}{.40\linewidth} 
+			\ifHandout\else
+				\centering
+				\animategraphics[autoplay,loop,width=\linewidth]{12}{Pictures/bubblelinks/bubble_}{1}{79}
+			\fi		
+		 \end{column}		 
+	 \end{columns}  
+	 \vfill
+  		\only<3->{ 
+			\centering
+			\includestandalone[width=0.65\textwidth]{Pictures/Animation_thankyou}
+		}
+\end{frame}
+\note{
+
+}
+%------------------------------------------------------------------------------------------------
+
+
+
+
+ 
+%------------------------------------------------------------------------------------------------
+% APPENDIX
+%------------------------------------------------------------------------------------------------
+\appendix
+\section{EXTRA}
+%------------------------------------------------------------------------------------------------
+\input{Slides_extra}
+
+%------------------------------------------------------------------------------------------------
+% https://en.wikibooks.org/wiki/LaTeX/Bibliographies_with_biblatex_and_biber
+\begin{frame}[t,allowframebreaks]{Extended Bibliography}
+	%\nocite{*}
+	\bibliographystyle{alpha}
+	\bibliography{bibfile}
+\end{frame}
+%------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------
+\begin{frame}[t]{Other aknowledgements}
+	\begin{itemize}
+		\item Picture - Continuum deformation
+			\url{https://commons.wikimedia.org/wiki/File:Displacement_of_a_continuum.svg}
+		\item Animation - Reidmester moves
+			\url{http://realworldmath.tumblr.com/post/57577812688/what-the-hell-is-knot-theory-knot-theory-is-one}
+		\item Animation - Bubble rings
+			\url{https://www.facebook.com/Nassim.Haramein.official/videos/596203997519126/}
+		\item Picture - Whithead link 
+			\url{https://en.wikipedia.org/wiki/Whitehead_link}
+		\item Picture - Gauss linking number 
+			\url{https://www.maths.ed.ac.uk/~v1ranick/papers/ricca.pdf}
+		\item Picture - Borromean Rings
+			\url{https://en.wikipedia.org/wiki/Borromean_rings}
+
+	\end{itemize}
+\end{frame}
+%------------------------------------------------------------------------------------------------
+
+
+
+%------------------------------------------------------------------------------------------------
+\end{document}
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+%- D0cum3nt ----------------------------------------------------------------------------------------------------------------------------------

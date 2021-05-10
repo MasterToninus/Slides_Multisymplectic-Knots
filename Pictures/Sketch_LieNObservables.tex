@@ -1,0 +1,57 @@
+%+------------------------------------------------------------------------+
+%| Diagram: Collection of diagram to help in explaining the definition of HCMM
+%| Author: Antonio miti
+%+------------------------------------------------------------------------+
+
+
+\documentclass[border=10pt, tikz]{standalone}
+\usepackage{tikz-cd}
+\usetikzlibrary{shapes.geometric,fit} %Ellissi attorno ai nodi
+\tikzset{
+   dashrect/.style={label=\Rightscissors,rectangle,draw,dashed,inner sep=0pt,red,fit={#1}}
+   %circle/.style={circle,draw,inner sep=0pt,black!60!green,fit={#1}}
+}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{marvosym}%https://tex.stackexchange.com/questions/214073/draw-pair-of-scissors-in-tikz
+
+\begin{document}
+  	\begin{tikzcd}
+  		\Omega^m & \ldots \ar[l] & \Omega^{n+1}\ar[l] & \Omega^n\ar[l] & \Omega^{n-1}\ar[l] & \Omega^{n-2}\ar[l]\ar[->>]{ddl} & \ldots \ar[l] & \Omega^0 \ar[l] \\
+  		& & 0\ar[hook]{u} & \lbrace \iota_v \omega \rbrace_{v \in \mathfrak{X}_{\textrm{ham}}} \ar[l]\ar[hook]{u} & \Omega^{n-1}_{\textrm{ham}}\ar[l]\ar[hook]{u} & & & \\
+   		& & & 0\ar[hook]{u} & B^{n-1}\ar[l]\ar[hook]{u} & & & \\
+  	\end{tikzcd}
+  	%
+  	\begin{tikzcd}
+  		\Omega^m & \ldots \ar[l] & \Omega^{n+1}\ar[l] & \Omega^n\ar[l] & \Omega^{n-1}\ar[l] &\color{blue} \Omega^{n-2}\ar[l]\ar[blue,->>]{ddl} &\color{blue} \ldots \ar[blue,l] &\color{blue} \Omega^0 \ar[blue,l]\\
+  		& &\color{blue} 0\ar[hook]{u} &\color{blue} \lbrace \iota_v \omega \rbrace_{v \in \mathfrak{X}_{\textrm{ham}}} \ar[blue,l]\ar[hook]{u} & \color{blue}\Omega^{n-1}_{\textrm{ham}}\ar[blue,l]\ar[hook]{u} &\phantom. & &\phantom. \\
+   		& & & 0\ar[hook]{u} &\color{blue} B^{n-1}\ar[l]\ar[blue,hook]{u} & & & \\
+  	\end{tikzcd}
+  	%
+  	 \begin{tikzcd}[
+  		execute at end picture={
+		\node[dashrect=(tikz@f@1-2-5)(tikz@f@2-2-8)]{};
+	}]
+  		\Omega^m & \ldots \ar[l] & \Omega^{n+1}\ar[l] & \Omega^n\ar[l] & \Omega^{n-1}\ar[l] & & &\\
+  		& &\color{blue} 0\ar[hook]{u} &\color{blue} \lbrace \iota_v \omega \rbrace_{v \in \mathfrak{X}_{\textrm{ham}}} \ar[blue,l]\ar[hook]{u} & \color{blue}\Omega^{n-1}_{\textrm{ham}}\ar[blue,l]\ar[hook]{u} &\color{blue} \Omega^{n-2}\ar[l]\ar[blue,->>]{dl} &\color{blue} \ldots \ar[blue,l] &\color{blue} \Omega^0 \ar[blue,l]\\
+   		& & & 0\ar[hook]{u} &\color{blue} B^{n-1}\ar[l]\ar[blue,hook]{u} & & & \\
+  	\end{tikzcd}
+  	%
+  	 \begin{tikzcd}[column sep= small,row sep=small]
+		\color{red}0 & \color{red}\Omega^{n-1}_{\textrm{ham}}\ar[red,l] &\color{red} \Omega^{n-2}\ar[red,l]&\color{red} \ldots \ar[red,l] &\color{red} \Omega^0 \ar[red,l] & \color{red}0 \ar[red,l]\\
+  	\end{tikzcd}
+  	%
+  	 \begin{tikzcd}[column sep= small,row sep=small]
+		\color{red}0 \ar[red,r]&\color{red} \Omega^0 \ar[red,rr]\ar[red,equal,d] & &\color{red} \ldots \ar[red,rr] & & \color{red} \Omega^{n-2}\ar[red,r]\ar[red,equal,d]& \color{red} \Omega^{n-1}_{\textrm{ham}} \ar[red,r]\ar[red,equal,d] &  \color{red}0\\
+		\color{red}0 \ar[red,r]&\color{red} L^{n-1} \ar[red,rr] & &\color{red} \ldots \ar[red,rr] & & \color{red} L^{1}\ar[red,r]& \color{red} L^{0}_{\textrm{ham}} \ar[red,r] &  \color{red}0
+  	\end{tikzcd}
+  	%
+  	 \begin{tikzcd}[column sep= small,row sep=small]
+		\color{red}0 \ar[red,r]&\color{red} \Omega^0 \ar[red,r]\ar[red,equal,d] & \color{red} \ldots & \color{black!60!green} \Omega^{n-k+1}\ar[black!60!green,equal,d] & \color{red} \ldots \ar[red,r]& \color{red} \Omega^{n-2}\ar[red,r]\ar[red,equal,d]& \color{red} \Omega^{n-1}_{\textrm{ham}} \ar[red,r]\ar[red,equal,d] &  \color{red}0\\
+		\color{red}0 \ar[red,r]&\color{red} L^{n-1} \ar[red,r] &\color{red} \ldots & \color{black!60!green} L^{k-2}  & \color{red} \ldots \ar[red,r]& \color{red} L^{1}\ar[red,r]& \color{red} L^{0}_{\textrm{ham}} \arrow[lll,black!60!green,to path={  -- +(0,-4ex) -| node[pos=0.25,commutative diagrams/every label]{$\varsigma(k)\iota_{v_{\alpha_k}}\cdots\iota_{v_{\alpha_1}}\omega$}(\tikztotarget)}]
+		\ar[red,r] &  \color{red}0
+  	\end{tikzcd}
+
+\end{document}
+
+	

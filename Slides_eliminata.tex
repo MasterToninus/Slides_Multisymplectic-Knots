@@ -1,0 +1,94 @@
+%- HandOut Flag -----------------------------------------------------------------------------------------
+\newif\ifHandout
+
+%- D0cum3nt ----------------------------------------------------------------------------------------------
+\documentclass[beamer,10pt]{standalone}
+
+
+
+%- Packages ----------------------------------------------------------------------------------------------
+\usepackage{verbatim}
+\usepackage{appendixnumberbeamer}
+
+\usepackage{amsmath, amssymb}
+\usepackage{tikz}
+
+\usepackage{tikz-cd}
+\usepackage{graphicx, animate}
+\usepackage{hyperref}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage[mode=buildnew,subpreambles=true]{standalone}
+\usepackage{stackengine}
+
+
+\providecommand{\blank}{\text{\textvisiblespace}}
+
+%--Beamer Style-----------------------------------------------------------------------------------------------
+\usetheme{toninus}
+
+%--WORKAROUND------------------------------------------------------------------------------------------
+%Credit: https://tex.stackexchange.com/questions/147899/path-problem-with-included-file-inside-of-a-standalone-file
+\providecommand{\includestandalonewithpath}[3][]{%
+  \begingroup%
+  \providecommand{\datapath}{#2}%
+  \includestandalone[#1]{\datapath/#3}%
+  \endgroup}
+
+
+
+
+%---------------------------------------------------------------------------------------------------------------------------------------------------
+%- D0cum3nt ----------------------------------------------------------------------------------------------------------------------------------
+\begin{document}
+
+%------------------------------------------------------------------------------------------------
+% APPENDIX
+%------------------------------------------------------------------------------------------------
+\appendix
+\section*{VECCHI SPUNTI}
+\sectionpage
+%------------------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------------------------
+\begin{frame}{parte covariant dell'articolo}
+As a byproduct, we shall exhibit a covariant phase space interpretation of Brylinski's manifold of mildly singular links upon resorting the Euler equation for perfect fluids.
+ Pagina 22 slides MS
+\end{frame}
+%------------------------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------------------------------------------------------------
+  \begin{frame}[fragile]{Capire/Motivare algebra $L-\infty$ degli osservabili}
+	Perchè ho una lista di osservabili dalle 0-forme alle n-1 forme?\\
+	Gimmsy ci dice:
+	\begin{itemize}
+		\item ad un sistema fisico con con set dei gradi di libertà continuo di dimensione k+1
+		\item si associa un fibrato $E \to M$ con varietà base di demnsione k+1 ("spazio"+"tempo")
+		\item a cui si associa una varietà k+2-plettica
+		\item gli osservabili sono dalle k-forme in giù. Bene è tutto ciò che si può pullbackare 
+			sui "piano di contemporaneità" $\Sigma$ senza che svanisca.
+		\item ovvero gadget che si possono valutare su punti, direzioni e opportune sottovarietà di $\Sigma$
+	\end{itemize}
+  	E.g. il Filamento:
+	%
+		\[ 
+	\begin{tikzcd}[column sep= small,row sep=0ex]
+		E \ar[r,equal] & \mathbb{R}\times I \times \mathbb{R}^3 \\
+		M \ar[r,equal] & \mathbb{R}\times I
+	\end{tikzcd} 
+	\]	
+  \end{frame}
+  \note{
+  		Motivations:\\
+		is known that filament (knot) system enjoys important symmetries. Namely is invariant under  orientation preserving transformations.
+		Therefore is natural to look at the momenta associated. MS geometry and HCMM gives the language to formalize this concept.
+		\\
+		Our construction is a special case of Thm 9.6 CFRZ. Note that in cooking our $\phi$ we only relied on Riemannian geometric feature. So, a more abstract extension is in order.
+		Note also the importance of the vanishing at the point of all the fields.
+		\\
+	}
+%------------------------------------------------------------------------------------------------
+
+
+
+\end{document}
